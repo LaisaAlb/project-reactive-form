@@ -1,0 +1,20 @@
+<div class="p-4 flex justify-end gap-4">
+    <button 
+        class="rounded-md px-3 py-2 text-lg font-medium leading-5 text-white bg-indigo-600 hover:bg-indigo-500"
+        (click)="onEditButton()"
+        *ngIf="!isInEditMode">Editar</button>
+    <button 
+        class="rounded-md px-3 py-2 text-lg font-medium leading-5 text-white bg-red-600 hover:bg-red-500"
+        (click)="onCancelButton()"
+        *ngIf="isInEditMode">Cancelar</button>
+    <button 
+        class="rounded-md px-3 py-2 text-lg font-medium leading-5 text-white"
+        [ngClass]="{
+            'bg-green-200' : !enableSaveButton,
+            ' bg-green-600 hover:bg-green-500' : enableSaveButton
+        }"
+        [disabled]="!enableSaveButton"
+        *ngIf="isInEditMode"
+        (click)="onSaveButton()"
+    >Salvar</button>
+</div>

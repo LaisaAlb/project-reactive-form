@@ -1,0 +1,60 @@
+<mat-tab-group [(selectedIndex)]="currentTabIndex">
+    <mat-tab>
+        <ng-template mat-tab-label>
+            Geral
+            <mat-icon 
+                class="red-cicle-icon" 
+                color="warn" 
+                *ngIf="isInEditMode && !generalInformationsValid"
+                >circle</mat-icon>
+        </ng-template>
+        
+        <app-general-informations
+            *ngIf="!isInEditMode" 
+            [user]="userSelected"></app-general-informations>
+        <app-general-informations-edit 
+            *ngIf="isInEditMode"
+            [userForm]="userForm"
+            [countriesList]="countriesList"
+            [statesList]="statesList"
+            (onCountrySelected)="onCountrySelected($event)"></app-general-informations-edit>
+    </mat-tab>
+    <mat-tab>
+        <ng-template mat-tab-label>
+            Contato
+            <mat-icon 
+                class="red-cicle-icon" 
+                color="warn" 
+                *ngIf="isInEditMode && !contactInformationsValid"
+                >circle</mat-icon>
+        </ng-template>
+        <app-contact-informations 
+            [user]="userSelected"
+            *ngIf="!isInEditMode"
+        ></app-contact-informations>
+        <app-contact-informations-edit
+            [userForm]="userForm"
+            *ngIf="isInEditMode"
+        ></app-contact-informations-edit>
+    </mat-tab>
+    <mat-tab>
+        <ng-template mat-tab-label>
+            Dependentes
+            <mat-icon 
+                class="red-cicle-icon" 
+                color="warn" 
+                *ngIf="isInEditMode && !dependentListValid"
+                >circle</mat-icon>
+        </ng-template>
+        <app-dependents-list 
+            [dependentsList]="userSelected.dependentsList"
+            *ngIf="!isInEditMode"
+            ></app-dependents-list>
+            <app-dependents-list-edit 
+            [userForm]="userForm"
+            *ngIf="isInEditMode"
+            (onRemoveDependents)="removeDependent($event)"
+            (onAddDependents)="addDependent()"
+        ></app-dependents-list-edit>
+    </mat-tab>
+</mat-tab-group>

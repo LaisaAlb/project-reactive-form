@@ -1,0 +1,14 @@
+<form class="grid lg:grid-cols-3 lg:gap-4" [formGroup]="userForm">
+    <ng-container formGroupName="contactInformations">
+        <ng-container formArrayName="phoneList">
+            <mat-form-field class="w-full" *ngFor="let phone of phoneList.controls; let i = index" [formGroupName]="i">
+                <mat-label> {{ phoneList.value[i].typeDescription }}:</mat-label>
+                <input 
+                    matInput [placeholder]="phoneList.value[i].type | maskPlaceholder" 
+                    [mask]="phoneList.value[i].type | phoneMask" formControlName="number">
+                    <mat-error *ngIf="phone.get('number')?.hasError('required')">O Telefone é obrigatório.</mat-error>
+                    <mat-error *ngIf="phone.get('number')?.hasError('mask')">O Telefone é inválido.</mat-error>
+            </mat-form-field>
+        </ng-container>
+    </ng-container>
+</form>
