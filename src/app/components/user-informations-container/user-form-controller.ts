@@ -126,9 +126,9 @@ export class UserFormController {
 
     private fulfillAddressList(userAddressList: AddressList) {
         prepareAddressList(userAddressList, false, (address) => {
-            this.addressList.push(this._fb.group({
+            const addressGroup = this._fb.group({
                 type: [address.type],
-                typeDescription: [{ value: address.typeDescription, disable: true }],
+                typeDescription: [address.typeDescription],  
                 street: [address.street],
                 complement: [address.complement],
                 country: [address.country],
@@ -136,11 +136,14 @@ export class UserFormController {
                 city: [address.city],
             }, {
                 validators: requiredAddressValidator
-            }))
-        })
-        // getRawValue = Pega todos os valores, até os desabilitados
+            });
+    
+            addressGroup.get('typeDescription')?.disable();
+    
+            this.addressList.push(addressGroup);
+        });
     }
-
+    
     private fulfillPhoneList(userPhoneList: PhoneList) {
         preparePhoneList(userPhoneList, false, (phone) => {
             const phoneValidators = phone.type === PhoneTypeEnum.EMERGENCY ? [] : [Validators.required]
