@@ -128,7 +128,7 @@ export class UserFormController {
         prepareAddressList(userAddressList, false, (address) => {
             this.addressList.push(this._fb.group({
                 type: [address.type],
-                typeDescription: [{ valu: address.typeDescription, disable: true }],
+                typeDescription: [{ value: address.typeDescription, disable: true }],
                 street: [address.street],
                 complement: [address.complement],
                 country: [address.country],
